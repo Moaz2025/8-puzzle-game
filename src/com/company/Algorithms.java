@@ -1,3 +1,5 @@
+package com.company;
+
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -14,16 +16,8 @@ public class Algorithms{
     for(int i=0;i<input.length();i++){
       result+=count*Long.parseLong(String.valueOf(input.charAt(i))); 
       count*=16;
-      
-
-
-
-
     }
     System.out.println(result);
-
-
-
   }
 
 
