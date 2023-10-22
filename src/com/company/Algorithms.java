@@ -19,13 +19,6 @@ public class Algorithms{
     }
     System.out.println(result);
   }
-
-
-
-
-
-
-
     static void  fromLongTo2dArray (HashMap<Long,Long> parent) {
       
       int[][] xx =new int[3][3];
