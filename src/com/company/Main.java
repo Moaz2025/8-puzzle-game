@@ -13,7 +13,10 @@ public class Main {
         AStar a = new AStar(0);
         Node finalNode = a.AStarSearch("768243105");
         System.out.println();
-        System.out.println(finalNode.depth);
+
+        System.out.println(a.depth);
+        System.out.println(a.pathCost);
+        System.out.println(a.nodesExpanded);
         System.out.println(a.path);
     }
     public static double manhattanHeuristic(String state){
