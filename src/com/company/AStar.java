@@ -7,6 +7,9 @@ import java.util.List;
 public class AStar {
     private int hearisticType;
     public List<String> path = new ArrayList<>();
+    public int nodesExpanded;
+    public int depth;
+    public int pathCost;
 
     public AStar(int hearisticType) {
         this.hearisticType = hearisticType;
@@ -21,18 +24,21 @@ public class AStar {
         frontier.add(root);
         frontierMap.put(initialState, root);
 
+        nodesExpanded = 0;
         while (!frontier.isEmpty()){
             Node state = frontier.remove();
             String statePuzzle = state.getPuzzle();
             frontierMap.remove(statePuzzle);
             explored.add(statePuzzle);
-
-            System.out.println(statePuzzle);
+//            System.out.println(statePuzzle);
 
             if(statePuzzle.equals("012345678")){
                 getPath(state);
+                this.depth = state.depth;
+                this.pathCost = state.depth;
                 return state;
             }
+            nodesExpanded ++;
 
             for(String neighbor: getNeighbors(statePuzzle)){
                 if(!explored.contains(neighbor) && !frontierMap.keySet().contains(neighbor)){
@@ -47,6 +53,8 @@ public class AStar {
             }
 
         }
+        this.depth = -1;
+        this.pathCost = 0;
         return new Node("000000000", null, -1, hearisticType);
     }
 
