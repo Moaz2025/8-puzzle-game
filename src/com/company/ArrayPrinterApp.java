@@ -9,6 +9,7 @@ import java.util.List;
 
 public class ArrayPrinterApp extends JFrame {
     private List<int[][]> arrayList;
+    private Font font, btnFont;
     private int currentIndex;
 
     private JPanel arrayPanel;
@@ -22,6 +23,8 @@ public class ArrayPrinterApp extends JFrame {
 
     private void initUI() {
         setTitle("2D Array Viewer");
+        font = new Font("Arial", Font.PLAIN, 50);
+        font = new Font("Arial", Font.PLAIN, 40);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         // Set the preferred size of the JFrame (width, height)
         setPreferredSize(new Dimension(600, 500));
@@ -36,7 +39,10 @@ public class ArrayPrinterApp extends JFrame {
         JButton nextButton = new JButton("Next");
         JButton firstButton = new JButton("First");
         JButton lastButton = new JButton("Last");
-
+        prevButton.setFont(btnFont);
+        nextButton.setFont(btnFont);
+        lastButton.setFont(btnFont);
+        firstButton.setFont(btnFont);
         prevButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -75,9 +81,10 @@ public class ArrayPrinterApp extends JFrame {
         });
 
         JPanel buttonPanel = new JPanel();
+        buttonPanel.add(firstButton);
         buttonPanel.add(prevButton);
         buttonPanel.add(nextButton);
-        buttonPanel.add(firstButton);
+
         buttonPanel.add(lastButton);
 
         add(arrayPanel, BorderLayout.CENTER);
@@ -92,8 +99,14 @@ public class ArrayPrinterApp extends JFrame {
         for (int i = 0; i < array.length; i++) {
             for (int j = 0; j < array[0].length; j++) {
                 JLabel label = new JLabel(String.valueOf(array[i][j]));
+                label.setFont(font);
                 label.setHorizontalAlignment(JLabel.CENTER);
                 label.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+                if(array[i][j] == 0){
+                    label.setText("");
+                    label.setOpaque(true);
+                    label.setForeground(Color.RED);
+                }
                 arrayPanel.add(label);
             }
         }
