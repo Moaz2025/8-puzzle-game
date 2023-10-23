@@ -11,8 +11,8 @@ public class AStar {
     public int depth;
     public int pathCost;
 
-    public AStar(int hearisticType) {
-        this.HeuristicType = hearisticType;
+    public AStar(int HeuristicType) {
+        this.HeuristicType = HeuristicType;
     }
 
     public Node AStarSearch(String initialState){
