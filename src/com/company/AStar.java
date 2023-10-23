@@ -5,14 +5,14 @@ import java.util.*;
 import java.util.List;
 
 public class AStar {
-    private int hearisticType;
+    private int HeuristicType;
     public List<String> path = new ArrayList<>();
     public int nodesExpanded;
     public int depth;
     public int pathCost;
 
     public AStar(int hearisticType) {
-        this.hearisticType = hearisticType;
+        this.HeuristicType = hearisticType;
     }
 
     public Node AStarSearch(String initialState){
@@ -20,7 +20,7 @@ public class AStar {
         PriorityQueue<Node> frontier = new PriorityQueue<>();
         Map<String, Node> frontierMap = new HashMap<>();
 
-        Node root = new Node(initialState, null, 0, hearisticType);
+        Node root = new Node(initialState, null, 0, HeuristicType);
         frontier.add(root);
         frontierMap.put(initialState, root);
 
@@ -42,11 +42,11 @@ public class AStar {
 
             for(String neighbor: getNeighbors(statePuzzle)){
                 if(!explored.contains(neighbor) && !frontierMap.keySet().contains(neighbor)){
-                    Node child = new Node(neighbor,state, state.depth + 1, hearisticType);
+                    Node child = new Node(neighbor,state, state.depth + 1, HeuristicType);
                     frontier.add(child);
                     frontierMap.put(neighbor, child);
                 }else if(frontierMap.keySet().contains(neighbor)){
-                    Node child = new Node(neighbor,state, state.depth + 1, hearisticType);
+                    Node child = new Node(neighbor,state, state.depth + 1, HeuristicType);
                     if(child.getCost() < frontierMap.get(neighbor).getCost())
                         frontierMap.put(neighbor, child);
                 }
@@ -55,7 +55,7 @@ public class AStar {
         }
         this.depth = -1;
         this.pathCost = 0;
-        return new Node("000000000", null, -1, hearisticType);
+        return new Node("000000000", null, -1, HeuristicType);
     }
 
     public void getPath(Node goal){
