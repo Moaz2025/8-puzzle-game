@@ -158,14 +158,20 @@ public class Algorithms {
         algo = 1;
         int depth = 0;
         Stack<Long> frontier = new Stack<>(); // Data structure for states to be explored
-        HashSet<Long> explored = new HashSet<>(); // Data structure for explored states
+        HashMap<Long,Integer> explored = new HashMap<>(); // Data structure for explored states
         HashMap<Long, Long> parent = new HashMap<>(); // data structures for relations between states in search tree
         parent.put(s, s); //adding the intial state to frontier and parent map
         frontier.add(s);
         //loop begining
         while (!frontier.isEmpty()) {
             long cur = frontier.pop(); // current state to be checked
-            explored.add(cur);
+            if(cur==s)
+                explored.put(cur,0);
+            else{
+                depth=explored.get(parent.get(cur))+1;
+                if(depth>maxDepth)
+                    maxDepth=depth;
+            explored.put(cur,depth);}
             // checking current state
             if (cur == 581519483136l) {
                 System.out.println("Found");
@@ -176,7 +182,7 @@ public class Algorithms {
                     (cur & 2) + (cur & 1));  // extracting index of 0 in the puzzle table from the long number
             // neighbors examination starts
             long neighbor = 0l;
-            boolean foundn = false;
+
             //tie policy(up-down-left-right)
             //moving right
             if ((p1) % 3 != 0) {
@@ -185,7 +191,7 @@ public class Algorithms {
                     frontier.push(neighbor);
                     parent.put(neighbor, cur);
                     nodesExpanded++;
-                    foundn = true;
+
                 }
             }
             //moving  left
@@ -195,7 +201,7 @@ public class Algorithms {
                     frontier.push(neighbor);
                     parent.put(neighbor, cur);
                     nodesExpanded++;
-                    foundn = true;
+
                 }
             }
             //moving  down
@@ -205,7 +211,7 @@ public class Algorithms {
                     frontier.push(neighbor);
                     parent.put(neighbor, cur);
                     nodesExpanded++;
-                    foundn = true;
+
                 }
             }
             //moving  up
@@ -215,15 +221,11 @@ public class Algorithms {
                     frontier.push(neighbor);
                     parent.put(neighbor, cur);
                     nodesExpanded++;
-                    foundn = true;
+
                 }
             }
-            if (foundn) {
-                depth++;
-            }
-            if (depth > maxDepth) {
-                maxDepth = depth;
-            }
+
+
 
             // neighbors examination ends
         }// end of loop
