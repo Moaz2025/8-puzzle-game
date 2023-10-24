@@ -33,71 +33,99 @@ public class Main {
         return matrixList;
     }
     public static void main(String[] args) {
+        State state = State.AddingState;
         Scanner scanner = new Scanner(System.in);
-        boolean countinue = true;
-        while (countinue){
+        while (state != State.End){
             System.out.println("Enter the initial state (ex: 124567038)");
             String initialState = scanner.next();
-            while (true){
+            state = State.ChoosingAlgorithm;
+            while (state == State.ChoosingAlgorithm){
                 System.out.println("Enter 0 for DFS, 1 for BFS, 2 for A* Manhattan , else for A* Euclidean");
                 int algorithm = scanner.nextInt();
-                List path;
-                Long start, end;
+                List path = new ArrayList();
+                Long start, end = System.currentTimeMillis();
+                boolean isSolvable = true;
                 if(algorithm == 0){
                     var solver = new Algorithms();
                     start = System.currentTimeMillis();
                     HashMap solve = solver.DFS(solver.fromStringToLong(initialState));
-                    path = solver.getPath(solve);
-                    end = System.currentTimeMillis();
-                    System.out.println("Cost = " + solver.cost);
-                    System.out.println("Nodes expanded = " + solver.nodesExpanded);
-                    System.out.println("Search depth = " + solver.maxDepth);
+                    if(!solver.found){
+                        System.out.println("Not solvable");
+                        isSolvable = false;
+                    }else {
+                        path = solver.getPath(solve);
+                        end = System.currentTimeMillis();
+                        System.out.println("Cost = " + solver.cost);
+                        System.out.println("Nodes expanded = " + solver.nodesExpanded);
+                        System.out.println("Search depth = " + solver.maxDepth);
+                    }
+
                 }else if(algorithm == 1){
                     var solver = new Algorithms();
                     start = System.currentTimeMillis();
                     HashMap solve = solver.BFS(solver.fromStringToLong(initialState));
-                    path = solver.getPath(solve);
-                    end = System.currentTimeMillis();
-                    System.out.println("Cost = " + solver.cost);
-                    System.out.println("Nodes expanded = " + solver.nodesExpanded);
-                    System.out.println("Search depth = " + solver.maxDepth);
+                    if(!solver.found){
+                        System.out.println("Not solvable");
+                        isSolvable = false;
+                    }else{
+                        path = solver.getPath(solve);
+                        end = System.currentTimeMillis();
+                        System.out.println("Cost = " + solver.cost);
+                        System.out.println("Nodes expanded = " + solver.nodesExpanded);
+                        System.out.println("Search depth = " + solver.maxDepth);
+                    }
+
                 }else if(algorithm == 2){
                     var solver = new AStar(0);
                     start = System.currentTimeMillis();
                     Boolean solvable = solver.AStarSearch(initialState);
-                    end = System.currentTimeMillis();
-                    System.out.println("Cost = " + solver.pathCost);
-                    System.out.println("Nodes expanded = " + solver.nodesExpanded);
-                    System.out.println("Search depth = " + solver.depth);
-                    path = converter(solver.path);
+                    if(!solvable){
+                        System.out.println("Not solvable");
+                        isSolvable = false;
+                    }else{
+                        end = System.currentTimeMillis();
+                        System.out.println("Cost = " + solver.pathCost);
+                        System.out.println("Nodes expanded = " + solver.nodesExpanded);
+                        System.out.println("Search depth = " + solver.depth);
+                        path = converter(solver.path);
+                    }
+
                 }else {
                     var solver = new AStar(1);
                     start = System.currentTimeMillis();
                     Boolean solvable = solver.AStarSearch(initialState);
-                    end = System.currentTimeMillis();
-                    System.out.println("Cost = " + solver.pathCost);
-                    System.out.println("Nodes expanded = " + solver.nodesExpanded);
-                    System.out.println("Search depth = " + solver.depth);
-                    path = converter(solver.path);
+                    if(!solvable){
+                        System.out.println("Not solvable");
+                        isSolvable = false;
+                    }else {
+                        end = System.currentTimeMillis();
+                        System.out.println("Cost = " + solver.pathCost);
+                        System.out.println("Nodes expanded = " + solver.nodesExpanded);
+                        System.out.println("Search depth = " + solver.depth);
+                        path = converter(solver.path);
+                    }
                 }
-                System.out.println("Running time = " + (end-start) + "ms");
+                if(isSolvable){
+                    System.out.println("Running time = " + (end-start) + "ms");
+                    Scanner changeAlgorithm = new Scanner(System.in);
+                    System.out.println("Enter 0 to visualize the path, else no visualization");
+                    int isVisualize = changeAlgorithm.nextInt();
+                    if(isVisualize == 0){
+                        drawStates(path);
+                    }
+                }
+                System.out.println("Enter 0 to continue with same initial state, else to change initial state");
                 Scanner changeAlgorithm = new Scanner(System.in);
-                System.out.println("Enter 0 to visualize the path, else no visualization");
-                int isVisualize = changeAlgorithm.nextInt();
-                if(isVisualize == 0){
-                    drawStates(path);
-                }
-                System.out.println("Enter 0 to continue, else to change initial state");
                 int isChange = changeAlgorithm.nextInt();
                 if(isChange != 0){
-                    break;
+                    state = State.AddingState;
                 }
             }
             Scanner exit = new Scanner(System.in);
-            System.out.println("Enter 0 to continue, else to exit");
+            System.out.println("Enter 0 to continue with different state, else to exit the program");
             int isExit = exit.nextInt();
             if(isExit != 0){
-                countinue = false;
+                state = State.End;
             }
         }
 //        // Astar parameter:

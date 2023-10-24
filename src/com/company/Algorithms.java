@@ -100,7 +100,7 @@ public class Algorithms {
             explored.add(cur);
             // checking current state
             if (cur == 581519483136l) {
-                System.out.println("Found");
+                //System.out.println("Found");
                 found = true;
                 return parent;
             }
@@ -147,7 +147,7 @@ public class Algorithms {
             }
             // neighbors examination ended
         }// end of loop
-        System.out.println("Not Found");
+//        System.out.println("Not Found");
         found = false;
         return parent;
     }
@@ -174,7 +174,7 @@ public class Algorithms {
             explored.put(cur,depth);}
             // checking current state
             if (cur == 581519483136l) {
-                System.out.println("Found");
+                //System.out.println("Found");
                 found = true;
                 return parent;
             }
@@ -211,7 +211,6 @@ public class Algorithms {
                     frontier.push(neighbor);
                     parent.put(neighbor, cur);
                     nodesExpanded++;
-
                 }
             }
             //moving  up
@@ -229,7 +228,7 @@ public class Algorithms {
 
             // neighbors examination ends
         }// end of loop
-        System.out.println("Not Found");
+//        System.out.println("Not Found");
         found = false;
         return parent;
     }
