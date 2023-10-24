@@ -64,7 +64,7 @@ public class Main {
                 }else if(algorithm == 2){
                     var solver = new AStar(0);
                     start = System.currentTimeMillis();
-                    Node finalNode = solver.AStarSearch(initialState);
+                    Boolean solvable = solver.AStarSearch(initialState);
                     end = System.currentTimeMillis();
                     System.out.println("Cost = " + solver.pathCost);
                     System.out.println("Nodes expanded = " + solver.nodesExpanded);
@@ -73,7 +73,7 @@ public class Main {
                 }else {
                     var solver = new AStar(1);
                     start = System.currentTimeMillis();
-                    Node finalNode = solver.AStarSearch(initialState);
+                    Boolean solvable = solver.AStarSearch(initialState);
                     end = System.currentTimeMillis();
                     System.out.println("Cost = " + solver.pathCost);
                     System.out.println("Nodes expanded = " + solver.nodesExpanded);
