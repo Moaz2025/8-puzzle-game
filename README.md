@@ -20,3 +20,10 @@ made from the initial state to the goal state.
 BFS search  
 DFS search  
 A* search
+
+## Contributors
+
+- [Moaz AbdulFattah](https://www.github.com/Moaz2025)
+- [Hassan Ahmed](https://www.github.com/hassanAhmed310)
+- [Mohamed Ahmed Abdelaziz](https://www.github.com/Mohamed-Ahmed-Abdelaziz)
+- [Ahmed Ali](https://www.github.com/AhmedAli3011)
